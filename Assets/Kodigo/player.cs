@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    public static player Instance;
     public Rigidbody2D rB;
     public float speed = 10;
     public float posicionX;
@@ -13,40 +12,44 @@ public class player : MonoBehaviour
     public float posX;
     public float bPosX;
     public Vector3 mousePosition;
-    public bool paused;
+    public float maxX, minX;
 
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
+
     private void Start()
     {
-        paused = false;
+        GameManager.Instance.paused = false;
     }
     private void Update()
     {
-        if (paused) { return; }
+        if (GameManager.Instance.paused) { return; }
         Direction();
         PlayerController();
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        maxX = (16 - transform.GetChild(0).lossyScale.x) / 2; 
+        minX = maxX * -1;
     }
     void PlayerController()
     {
         switch (control)
         {
             case Control.Mouse:
-                if (mousePosition.x < 5.5f && mousePosition.x > -5.5f)
+                if (mousePosition.x < maxX && mousePosition.x > minX)
                 {
                     this.transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, transform.position.y);
+                }
+                if (this.transform.position.x>maxX)
+                {
+                    transform.position = new Vector2(maxX, transform.position.y);
+                }
+                if (this.transform.position.x<minX)
+                {
+                    transform.position = new Vector2(minX, transform.position.y);
                 }
                 break;
             case Control.Keyboard:
                 posicionX += Input.GetAxisRaw("Horizontal") * speed;
-                posicionX = Mathf.Clamp(posicionX, -5.5f, 5.5f);
+                posicionX = Mathf.Clamp(posicionX, minX, maxX);
                 this.transform.position = new Vector3(posicionX, transform.position.y, transform.position.z);
                 break;
             default:
@@ -60,6 +63,20 @@ public class player : MonoBehaviour
         bPosX = posX;
         posX = transform.position.x;
         dirX = bPosX - posX;
+    }
+    public void Mode(int mode)
+    {
+        switch (mode)
+        {
+            case 1:
+                control = Control.Mouse;
+                break;
+            case 2:
+                control = Control.Keyboard;
+                break;
+            default:
+                break;
+        }
     }
 
 
