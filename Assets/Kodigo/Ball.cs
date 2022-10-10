@@ -13,6 +13,10 @@ public class Ball : MonoBehaviour
     {
         posY = 1;
         posX = Random.Range(-1, 2);
+        if (posX==0)
+        {
+            posX = 1;
+        }
         gameOver = false;
     }
     void Update()
