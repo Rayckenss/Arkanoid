@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public bool win;
     public player player;
     public List<GameObject> boxes;
+    public float ballSpeed;
     [Header("Pause")]
     public GameObject pausedMenu;
     public GameObject warningPaused;

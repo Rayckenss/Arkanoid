@@ -25,6 +25,7 @@ public class Ball : MonoBehaviour
         if (GameManager.Instance.win) { return; }
         if (gameOver) { return; }
         BallBehaviour();
+        speed = GameManager.Instance.ballSpeed;
     }
     void BallBehaviour()
     {
