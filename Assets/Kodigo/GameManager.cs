@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public player player;
     public List<GameObject> boxes;
     public float ballSpeed;
+    public GameObject powerUpPrefab;
+    public float probabilidad;
+
     [Header("Pause")]
     public GameObject pausedMenu;
     public GameObject warningPaused;

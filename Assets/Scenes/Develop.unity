@@ -5217,6 +5217,8 @@ MonoBehaviour:
   - {fileID: 1315987046}
   - {fileID: 2096825554}
   ballSpeed: 5
+  powerUpPrefab: {fileID: 3743986299447781548, guid: c98f340b60e8f884590b06a46aeefffa, type: 3}
+  probabilidad: 7
   pausedMenu: {fileID: 846062865}
   warningPaused: {fileID: 1692243701}
   optionMenu: {fileID: 837108585}
@@ -5614,7 +5616,7 @@ MonoBehaviour:
   ball: {fileID: 1698893807}
   posX: 0
   posY: 0
-  speed: 5
+  speed: 0
 --- !u!50 &1698893809
 Rigidbody2D:
   serializedVersion: 4
