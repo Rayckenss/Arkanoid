@@ -5216,6 +5216,7 @@ MonoBehaviour:
   - {fileID: 1804031105}
   - {fileID: 1315987046}
   - {fileID: 2096825554}
+  ballSpeed: 5
   pausedMenu: {fileID: 846062865}
   warningPaused: {fileID: 1692243701}
   optionMenu: {fileID: 837108585}
