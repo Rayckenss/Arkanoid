@@ -9,11 +9,13 @@ public class Ball : MonoBehaviour
     public Transform ball;
     public float posX, posY, speed;
     bool gameOver;
+    public AudioSource sonido;
     
 
     void Start()
     {
         posY = 1;
+        sonido.volume = Options.globalVolumen;
         posX = Random.Range(-1, 2);
         if (posX == 0)
         {
@@ -28,6 +30,7 @@ public class Ball : MonoBehaviour
         if (gameOver) { return; }
         BallBehaviour();
         speed = GameManager.Instance.ballSpeed;
+        sonido.volume = Options.globalVolumen;
     }
     void BallBehaviour()
     {
@@ -39,10 +42,12 @@ public class Ball : MonoBehaviour
         if (collision.transform.tag == "Side")
         {
             posX = -posX;
+            sonido.Play();
         }
         if (collision.transform.tag == "Up")
         {
             posY = -posY;
+            sonido.Play();
         }
         if (collision.transform.tag == "Player")
         {
@@ -58,6 +63,7 @@ public class Ball : MonoBehaviour
                     posX = -1;
                 }
             }
+            sonido.Play();
         }
         if (collision.transform.tag == "Bot")
         {
@@ -66,21 +72,28 @@ public class Ball : MonoBehaviour
         }
         if (collision.transform.tag == "Box")
         {
-            ContactPoint2D[] point = collision.contacts;
-            point.OrderBy(ContactPoint2D => ContactPoint2D.point.x);
-            foreach (ContactPoint2D contact in point)
+            if (collision.contacts.Length>0)
             {
-                Debug.Log(contact.point.x);
+                for (int i = 0; i < collision.contacts.Length; i++)
+                {
+                    if (transform.position.x>collision.contacts[i].point.x&&posX<0|| transform.position.x < collision.contacts[i].point.x && posX > 0 )
+                    {
+                        posX = -posX;
+                        sonido.Play();
+                    }
+                    if (transform.position.y > collision.contacts[i].point.y && posY < 0 || transform.position.y < collision.contacts[i].point.y && posY > 0)
+                    {
+                        posY = -posY;
+                        sonido.Play();
+                    }
+                }
             }
-            posX = collision.transform.position.x > this.transform.position.x ? -posX : posX;
-            posY = collision.transform.position.y > this.transform.position.y ? -posY : posY;
-            posX = collision.transform.position.x > this.transform.position.x ? posX : -posX;
-            posY = collision.transform.position.y > this.transform.position.y ? posY : -posY;
-            if (Random.Range(0, 11) >= GameManager.Instance.probabilidad)
+            if (Random.Range(0, 101) <= GameManager.Instance.probabilidad)
             {
                 GameObject poweUp = Instantiate(GameManager.Instance.powerUpPrefab, collision.transform.position,Quaternion.identity);
             }
             GameManager.Instance.boxes.Remove(collision.gameObject);
+            GameManager.Instance.PuntajeEnPantalla(10);
             collision.transform.GetComponent<Box>().Life(1);
         }
     }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 317834091}
   - component: {fileID: 317834090}
   - component: {fileID: 317834087}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f688f015e467d84db296d2cc71411bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 2

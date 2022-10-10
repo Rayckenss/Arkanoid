@@ -36,6 +36,7 @@ public class player : MonoBehaviour
             case Control.Mouse:
                 if (mousePosition.x < maxX && mousePosition.x > minX)
                 {
+                Debug.Log("eNTRA");
                     this.transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, transform.position.y);
                 }
                 if (this.transform.position.x>maxX)
