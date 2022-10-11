@@ -5,9 +5,15 @@ using UnityEngine;
 public class PU_Behaviour : MonoBehaviour
 {
     public float speed;
+    public AudioSource sonido;
+    private void Start()
+    {
+        sonido.volume = Options.globalVolumen;
+    }
     void Update()
     {
         this.transform.position = new Vector3(transform.position.x, transform.position.y - (speed * Time.deltaTime), transform.position.z);
+        sonido.volume = Options.globalVolumen;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -23,6 +29,7 @@ public class PU_Behaviour : MonoBehaviour
                     {
                         collision.transform.GetComponentInChildren<Transform>().localScale = new Vector3(3, 1, 1);
                     }
+                    sonido.Play();
                     Destroy(this.gameObject);
                     break;
                 case 1:
@@ -31,6 +38,7 @@ public class PU_Behaviour : MonoBehaviour
                     {
                         GameManager.Instance.ballSpeed = 10;
                     }
+                    sonido.Play();
                     Destroy(this.gameObject);
                     break;
                 case 2:
@@ -39,6 +47,7 @@ public class PU_Behaviour : MonoBehaviour
                     {
                         GameManager.Instance.ballSpeed = 2;
                     }
+                    sonido.Play();
                     Destroy(this.gameObject);
                     break;
                 default:

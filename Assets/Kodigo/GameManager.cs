@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public float ballSpeed;
     public GameObject powerUpPrefab;
     public float probabilidad;
+    public Nivel nivel;
 
     [Header("Audio")]
     public AudioSource musicaFondo;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     [Header("Options")]
     public GameObject optionMenu;
     public GameObject sliderGameMode;
+    public Slider sensibility;
 
     [Header("interfaz")]
     public GameObject endGame;
@@ -54,7 +56,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            Debug.Log(this.name);
         }
     }
     private void Start()
@@ -67,6 +68,8 @@ public class GameManager : MonoBehaviour
         sliderGameMode.SetActive(false);
         musicaFondo.volume = Options.globalVolumen;
         volumen.value = Options.globalVolumen;
+        sensibility.value = Options.sensibility;
+        player.speed=sensibility.value;
         ModoDeJuego();
 
         //reloj
@@ -78,10 +81,13 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         PauseButton();
+        if (paused) { return; }
         ModoDeJuego();
         musicaFondo.volume = Options.globalVolumen;
         Options.globalVolumen = volumen.value;
-        if (boxes.Count==0)
+        player.speed = sensibility.value;
+        Options.sensibility = sensibility.value;
+        if (boxes.Count == 0)
         {
             win = true;
             winGame.SetActive(true);
@@ -132,18 +138,19 @@ public class GameManager : MonoBehaviour
     {
         switch (button)
         {
+
             case 1:
                 //Continue button
                 paused = false;
                 pausedMenu.SetActive(false);
                 break;
             case 2:
-                //Seleccionar modo de juego
-                
+                //siguiente nivel
+                NivelSwitch();
                 break;
             case 3:
                 //Retry nutton
-                SceneManager.LoadScene(1);
+                NivelRestart();
                 break;
             case 4:
                 //options
@@ -169,6 +176,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     void ActualizarReloj(float tiempo)
     {
         int minutos = 0;
@@ -190,5 +198,63 @@ public class GameManager : MonoBehaviour
         pnt = puntos.ToString("000");
         puntaje.text = pnt;
     }
-
+    void NivelSwitch()
+    {
+        switch (nivel)
+        {
+            case Nivel.nivel1:
+                SceneManager.LoadScene(2);
+                break;
+            case Nivel.nivel2:
+                SceneManager.LoadScene(3);
+                break;
+            case Nivel.nivel3:
+                SceneManager.LoadScene(4);
+                break;
+            case Nivel.nivel4:
+                SceneManager.LoadScene(5);
+                break;
+            case Nivel.nivel5:
+                SceneManager.LoadScene(0);
+                break;
+            case Nivel.inicio:
+                break;
+            default:
+                break;
+        }
+    }
+    void NivelRestart()
+    {
+        switch (nivel)
+        {
+            case Nivel.nivel1:
+                SceneManager.LoadScene(1);
+                break;
+            case Nivel.nivel2:
+                SceneManager.LoadScene(2);
+                break;
+            case Nivel.nivel3:
+                SceneManager.LoadScene(3);
+                break;
+            case Nivel.nivel4:
+                SceneManager.LoadScene(4);
+                break;
+            case Nivel.nivel5:
+                SceneManager.LoadScene(5);
+                break;
+            case Nivel.inicio:
+                break;
+            default:
+                break;
+        }
+    }
+    public enum Nivel
+    {
+        nivel1,
+        nivel2,
+        nivel3,
+        nivel4,
+        nivel5,
+        inicio
+    }
 }

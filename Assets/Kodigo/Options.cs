@@ -7,4 +7,5 @@ public static class Options
     public static bool mute;
     public static float globalVolumen = 0.5f;
     public static int modoDeJuego = 0;
+    public static float sensibility = 0.7f;
 }

@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
     public float posX, posY, speed;
     bool gameOver;
     public AudioSource sonido;
-    
+
 
     void Start()
     {
@@ -72,11 +72,11 @@ public class Ball : MonoBehaviour
         }
         if (collision.transform.tag == "Box")
         {
-            if (collision.contacts.Length>0)
+            if (collision.contacts.Length > 0)
             {
                 for (int i = 0; i < collision.contacts.Length; i++)
                 {
-                    if (transform.position.x>collision.contacts[i].point.x&&posX<0|| transform.position.x < collision.contacts[i].point.x && posX > 0 )
+                    if (transform.position.x > collision.contacts[i].point.x && posX < 0 || transform.position.x < collision.contacts[i].point.x && posX > 0)
                     {
                         posX = -posX;
                         sonido.Play();
@@ -90,11 +90,33 @@ public class Ball : MonoBehaviour
             }
             if (Random.Range(0, 101) <= GameManager.Instance.probabilidad)
             {
-                GameObject poweUp = Instantiate(GameManager.Instance.powerUpPrefab, collision.transform.position,Quaternion.identity);
+                GameObject poweUp = Instantiate(GameManager.Instance.powerUpPrefab, collision.transform.position, Quaternion.identity);
             }
-            GameManager.Instance.boxes.Remove(collision.gameObject);
             GameManager.Instance.PuntajeEnPantalla(10);
             collision.transform.GetComponent<Box>().Life(1);
+            if (collision.transform.GetComponent<Box>().life == 0)
+            {
+                GameManager.Instance.boxes.Remove(collision.gameObject);
+            }
+        }
+        if (collision.transform.tag == "Obs")
+        {
+            if (collision.contacts.Length > 0)
+            {
+                for (int i = 0; i < collision.contacts.Length; i++)
+                {
+                    if (transform.position.x > collision.contacts[i].point.x && posX < 0 || transform.position.x < collision.contacts[i].point.x && posX > 0)
+                    {
+                        posX = -posX;
+                        sonido.Play();
+                    }
+                    if (transform.position.y > collision.contacts[i].point.y && posY < 0 || transform.position.y < collision.contacts[i].point.y && posY > 0)
+                    {
+                        posY = -posY;
+                        sonido.Play();
+                    }
+                }
+            }
         }
     }
 }

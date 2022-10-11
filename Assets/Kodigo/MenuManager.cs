@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
 {
     public AudioSource musicaFondo;
     public Slider volumen;
+    public Slider sensibility;
 
     [Header("Play Menu")]
     public GameObject playMenu;
@@ -25,12 +26,16 @@ public class MenuManager : MonoBehaviour
     {
         musicaFondo.volume = Options.globalVolumen;
         volumen.value = Options.globalVolumen;
+
+        sensibility.value = Options.sensibility;
     }
 
     private void Update()
     {
         musicaFondo.volume = Options.globalVolumen;
         Options.globalVolumen = volumen.value;
+
+        Options.sensibility = sensibility.value;
     }
     public void MenuButtons(int num)
     {
@@ -50,19 +55,23 @@ public class MenuManager : MonoBehaviour
                 break;
             case 3:
                 // Nivel 1
-
+                SceneManager.LoadScene(1);
                 break;
             case 4:
                 //Nivel 2
+                SceneManager.LoadScene(2);
                 break;
             case 5:
                 //Nivel 3
+                SceneManager.LoadScene(3);
                 break;
             case 6:
                 //Nivel 4
+                SceneManager.LoadScene(4);
                 break;
             case 7:
                 //Nivel 5
+                SceneManager.LoadScene(5);
                 break;
             case 8:
                 //salida play menu

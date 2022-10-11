@@ -97,6 +97,38 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ballSpeed: 5
   powerUpPrefab: {fileID: 3743986299447781548, guid: c98f340b60e8f884590b06a46aeefffa, type: 3}
   probabilidad: 10
@@ -108,6 +140,10 @@ MonoBehaviour:
   sliderGameMode: {fileID: 0}
   endGame: {fileID: 0}
   winGame: {fileID: 0}
+  reloj: {fileID: 0}
+  puntaje: {fileID: 0}
+  tInicial: 0
+  escalaDeTiempo: 1
 --- !u!82 &841571523965667097
 AudioSource:
   m_ObjectHideFlags: 0
